@@ -64,12 +64,11 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
 
   private static readonly validations: ModelValidateOptions = {
     async validateEmail() {
+      // need validation conditions
+      if (!this.email) return
+
       const pattern =
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-
-      if (!this.email) {
-        throw new CustomValidationError('email', 'Email is required.')
-      }
 
       if (!pattern.test(this.email.toLowerCase())) {
         throw new CustomValidationError('email', 'Invalid email.')
@@ -82,11 +81,10 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
     },
 
     async validateUsername() {
-      const pattern = /^\w{4,16}$/
+      // need validation conditions
+      if (!this.username) return
 
-      if (!this.username) {
-        throw new CustomValidationError('username', 'Username is required.')
-      }
+      const pattern = /^\w{4,16}$/
 
       if (!pattern.test(this.username)) {
         throw new CustomValidationError('username', 'Invalid username.')
@@ -95,18 +93,6 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
       const otherUser = await User.findOne({ where: { username: this.username } })
       if (otherUser) {
         throw new CustomValidationError('username', 'Username existed.')
-      }
-    },
-
-    validatePassword() {
-      const pattern = /^.{8,32}$/
-
-      if (!this.password) {
-        throw new CustomValidationError('password', 'Password is required.')
-      }
-
-      if (!pattern.test(this.password)) {
-        throw new CustomValidationError('password', 'Invalid password.')
       }
     },
   }
