@@ -1,6 +1,11 @@
 export type ErrorCode = { code: number; message: string }
 
 export const ERROR_CODE = {
+  // 200
+  SUCCESS: {
+    code: 20001,
+    message: 'Success',
+  },
   // 401
   INVALID_CREDENTIALS: {
     code: 40101,
@@ -16,7 +21,12 @@ export const ERROR_CODE = {
   },
   MISSING_TOKEN: {
     code: 40104,
-    message: 'Token is required.',
+    message: 'Login is required.',
+  },
+  // 403
+  PERMISSION_DENIED: {
+    code: 40301,
+    message: 'Permission denied.',
   },
   // 404
   PAGE_NOT_FOUND: {

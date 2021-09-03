@@ -15,9 +15,9 @@ morgan.token('params', (req: Request, res) => {
   if (req.method === 'GET') {
     const params: { [k: string]: string } = {}
 
-    new URL(req.protocol + '://' + req.get('host') + req.originalUrl).searchParams.forEach(
-      (v, k) => (params[k] = v),
-    )
+    new URL(
+      req.protocol + '://' + req.get('host') + req.originalUrl,
+    ).searchParams.forEach((v, k) => (params[k] = v))
 
     return JSON.stringify(params)
   }
